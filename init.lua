@@ -215,6 +215,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+vim.opt.tabstop = 2 -- Number of spaces a tab character represents
+vim.opt.shiftwidth = 2 -- Number of spaces for each indentation level
+vim.opt.expandtab = true -- Use spaces instead of tabs
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -644,6 +648,8 @@ require('lazy').setup({
             },
           },
         },
+
+        basedpyright = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -662,6 +668,8 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'basedpyright', -- python lsp
+        'ruff', -- python lsp/linter/formatter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
